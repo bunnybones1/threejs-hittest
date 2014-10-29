@@ -1,8 +1,11 @@
 var onReady = function() {
 	var View = require('threejs-managed-view').View;
 	var hitTest = require('./');
+	var camera = new THREE.OrthographicCamera(-4, 6, -5, 5, -100, 100);
 	var view = new View({
+		camera: camera
 	})
+	view.scene.add(camera);
 
 	//important for test that all world matrices are updated
 	// view.camera.updateMatrix();
