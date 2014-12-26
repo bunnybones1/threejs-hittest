@@ -32,37 +32,7 @@ var onReady = function() {
 		handle.updateMatrixWorld();
 	};
 
-
-
-	var cols = 60;
-	var rows = ~~(cols / window.innerWidth * window.innerHeight * .5);
-	var range = {
-		x: {
-			min : -1,
-			max : 1
-		},
-		y: {
-			min : -1,
-			max : 1
-		}
-	};
-	range.x.size = range.x.max - range.x.min;
-	range.y.size = range.y.max - range.y.min;
-	var results = [];
-	for (var iRow = 0; iRow < rows; iRow++) {
-		var ratioY = iRow / rows;
-		var resultsLine = "" + iRow;
-		while(resultsLine.length < 3) resultsLine += " ";
-		for (var iCol = 0; iCol < cols; iCol++) {
-			var ratioX = iCol / cols;
-			var x = ratioX * range.x.size + range.x.min;
-			var y = ratioY * range.y.size + range.y.min;
-			resultsLine += hitTest(x, y, view.camera, handles).length > 0 ? 'X' : '_';
-		};
-		console.log(resultsLine);
-		results.push(resultsLine);
-	};
-	console.log(view.camera.parent === handles[1].parent)
+	hitTest.testGrid(view.camera, handles);
 
 }
 
