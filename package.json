@@ -9,10 +9,11 @@
     "email": "oz@bunnybones.com",
     "url": "https://github.com/bunnybones1"
   },
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
     "loadandrunscripts": "^1.0.0",
-    "threejs-managed-view": "^1.0.4"
+    "threejs-managed-view": "^4.0.1"
   },
   "scripts": {
     "test": "beefy test.js --live --open"

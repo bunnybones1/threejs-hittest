@@ -1,38 +1,15 @@
 
 var worldCameraPosition = new THREE.Vector3(),
 	offset = new THREE.Vector3(),
-	cameraVector = new THREE.Vector3();
-
-function updateCameraVector(camera, x, y) {
-	//flip y, just cuz
-	cameraVector.set( x, -y, 0.5 );
-	cameraVector.unproject( camera );
-	worldCameraPosition.copy(camera.position);
-	camera.parent.localToWorld(worldCameraPosition);
-	cameraVector.sub( worldCameraPosition ).normalize();
-};
-
-function updateCameraVectorOrtho(camera, x, y) {
-	//flip y, just cuz
-	cameraVector.set( x, -y, 0.5 );
-	cameraVector.unproject( camera );
-	worldCameraPosition.copy(camera.position);
-	camera.parent.localToWorld(worldCameraPosition);
-	cameraVector.sub( worldCameraPosition ).normalize();
-};
+	cameraVector = new THREE.Vector3(),
+	rayCaster = new THREE.Raycaster();
 
 function hitTest(x, y, camera, objects) {
-	if(camera instanceof THREE.PerspectiveCamera) {
-		updateCameraVector(camera, x, y);
-		var raycaster = new THREE.Raycaster( worldCameraPosition, cameraVector );
-		return raycaster.intersectObjects( objects );
-	} else {
-		cameraVector.set( x, -y, 0.5 );
-		var raycaster = new THREE.Raycaster();
-		raycaster.setFromCamera(cameraVector, camera);
-		return raycaster.intersectObjects( objects );
-	}
+	cameraVector.set( x, -y, 0.5 );
+	rayCaster.setFromCamera(cameraVector, camera);
+	return rayCaster.intersectObjects( objects );
 }
+
 hitTest.testGrid = function(x, y, camera, objects, cols, rows) {
 	cols = cols || 60;
 	rows = rows || ~~(cols / window.innerWidth * window.innerHeight * .5);

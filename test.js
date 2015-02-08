@@ -1,14 +1,14 @@
 var onReady = function() {
 	var View = require('threejs-managed-view').View;
 	var hitTest = require('./');
-	// var camera = new THREE.OrthographicCamera(-4, 6, -5, 5, -100, 100);
+	var camera = new THREE.OrthographicCamera(-4, 6, -5, 5, -100, 100);
 	var view = new View({
-		// camera: camera
+		camera: camera
 	})
-	// view.scene.add(camera);
+	view.scene.add(camera);
 
 	//important for test that all world matrices are updated
-	// view.camera.updateMatrix();
+	view.camera.updateMatrix();
 	view.camera.updateMatrixWorld();
 
 	var handles = [];
@@ -18,7 +18,9 @@ var onReady = function() {
 		[-1, 2, 0, .75],
 		[3, 2, 0, 1]
 	];
+
 	for (var i = 0; i < handleProps.length; i++) {
+
 		var handle = new THREE.Mesh(
 			new THREE.SphereGeometry(handleProps[i][3], 32, 16)
 		)
@@ -31,6 +33,28 @@ var onReady = function() {
 		// handle.updateMatrix();
 		handle.updateMatrixWorld();
 	};
+
+
+	var orthoScaleX, orthoScaleY, orthoOffsetX, orthoOffsetY;
+	if(view.camera instanceof THREE.OrthographicCamera) {
+		var rangeX = view.camera.right - view.camera.left;
+		var rangeY = view.camera.bottom - view.camera.top;
+		orthoScaleX = rangeX * .1;
+		orthoScaleY = rangeY * .1;
+		orthoOffsetX = rangeX * .5;
+		orthoOffsetY = rangeY * .5;
+		handles.forEach(function(handle) {
+			handle.position.x *= orthoScaleX;
+			handle.position.y *= orthoScaleY;
+			handle.position.x += orthoOffsetX;
+			handle.position.y += orthoOffsetY;
+			handle.scale.x *= orthoScaleX;
+			handle.scale.y *= orthoScaleY;
+			//important for test that all world matrices are updated
+			handle.updateMatrixWorld();
+		})
+	}
+
 	hitTest.testGrid(window.innerWidth * .5, window.innerHeight * .5, view.camera, handles);
 
 }
