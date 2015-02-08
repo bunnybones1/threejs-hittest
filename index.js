@@ -1,7 +1,5 @@
 
-var worldCameraPosition = new THREE.Vector3(),
-	offset = new THREE.Vector3(),
-	cameraVector = new THREE.Vector3(),
+var cameraVector = new THREE.Vector3(),
 	rayCaster = new THREE.Raycaster();
 
 function hitTest(x, y, camera, objects) {
