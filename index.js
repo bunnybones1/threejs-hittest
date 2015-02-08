@@ -28,8 +28,9 @@ function hitTest(x, y, camera, objects) {
 		return raycaster.intersectObjects( objects );
 	} else {
 		cameraVector.set( x, -y, 0.5 );
-		var ray = projector.pickingRay( cameraVector, camera );
-		return ray.intersectObjects( objects );
+		var raycaster = new THREE.Raycaster();
+		raycaster.setFromCamera(cameraVector, camera);
+		return raycaster.intersectObjects( objects );
 	}
 }
 hitTest.testGrid = function(x, y, camera, objects, cols, rows) {
