@@ -1,6 +1,6 @@
 {
   "name": "threejs-hittest",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "A convenient method for doing a hittest from a screen coordinate through a threejs camera.",
   "main": "index.js",
   "license": "MIT",
