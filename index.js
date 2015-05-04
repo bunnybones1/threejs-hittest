@@ -2,10 +2,10 @@
 var cameraVector = new THREE.Vector3(),
 	rayCaster = new THREE.Raycaster();
 
-function hitTest(x, y, camera, objects) {
+function hitTest(x, y, camera, objects, recursive) {
 	cameraVector.set( x, -y, 0.5 );
 	rayCaster.setFromCamera(cameraVector, camera);
-	return rayCaster.intersectObjects( objects );
+	return rayCaster.intersectObjects( objects, recursive );
 }
 
 hitTest.testGrid = function(x, y, camera, objects, cols, rows) {
