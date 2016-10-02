@@ -1,15 +1,26 @@
+THREE = require('three');
+
 var onReady = function() {
 	var View = require('threejs-managed-view').View;
 	var hitTest = require('./');
-	var camera = new THREE.OrthographicCamera(-4, 6, -5, 5, -100, 100);
+	var camera;
+	var cameraType = 'perspective';
+	if(cameraType === 'orthographic') {
+		camera = new THREE.OrthographicCamera(-4, 6, -5, 5, -100, 100);
+	} else {
+		camera = new THREE.PerspectiveCamera();
+		camera.position.set(0, 5, 5);
+		camera.lookAt(new THREE.Vector3());
+	}
 	var view = new View({
 		camera: camera
 	})
 	view.scene.add(camera);
 
 	//important for test that all world matrices are updated
-	view.camera.updateMatrix();
+	// view.camera.updateMatrix();
 	view.camera.updateMatrixWorld();
+	// view.camera.updateProjectionMatrix();
 
 	var handles = [];
 	var handleProps = [
@@ -30,7 +41,7 @@ var onReady = function() {
 		handles.push(handle);
 		view.scene.add(handle);
 		//important for test that all world matrices are updated
-		// handle.updateMatrix();
+		handle.updateMatrix();
 		handle.updateMatrixWorld();
 	};
 
@@ -62,7 +73,6 @@ var onReady = function() {
 var loadAndRunScripts = require('loadandrunscripts');
 loadAndRunScripts(
 	[
-		'bower_components/three.js/three.js',
 		'lib/stats.min.js',
 		'lib/threex.rendererstats.js',
 	],

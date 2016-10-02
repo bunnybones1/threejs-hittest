@@ -46,4 +46,6 @@ hitTest.testGrid = function(x, y, camera, objects, cols, rows) {
 	};
 }
 
+hitTest.rayCaster = rayCaster;
+
 module.exports = hitTest;

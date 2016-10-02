@@ -12,6 +12,7 @@
   "dependencies": {},
   "devDependencies": {
     "loadandrunscripts": "^1.0.0",
+    "three": "^0.81.2",
     "threejs-managed-view": "^4.0.1"
   },
   "scripts": {
